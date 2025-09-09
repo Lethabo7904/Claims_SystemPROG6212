@@ -1,0 +1,42 @@
+﻿@model List<ClaimsSystem.Models.Claim>
+@{
+    ViewData["Title"] = "Claims Dashboard";
+}
+
+<h2>Claims Dashboard</h2>
+<a class="btn btn-primary" href="/Claims/Create">Submit New Claim</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Lecturer</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Submitted</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.Id</td>
+                <td>@claim.LecturerName</td>
+                <td>@claim.Description</td>
+                <td>@claim.Amount</td>
+                <td>@claim.Status</td>
+                <td>@claim.DateSubmitted</td>
+                <td>
+                    @if (claim.Status == ClaimsSystem.Models.ClaimStatus.Pending)
+                    {
+                        <a href="/Claims/Approve/@claim.Id" class="btn btn-success btn-sm">Approve</a>
+                        <a href="/Claims/Reject/@claim.Id" class="btn btn-danger btn-sm">Reject</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
